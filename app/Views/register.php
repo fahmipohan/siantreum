@@ -4,6 +4,21 @@
 <?= view('layout/header') ?>
 
 <body>
+    <style>
+    @keyframes fadeIn {
+        from {
+            transform: translateY(-80%);
+        }
+
+        to {
+            transform: translateY(0);
+        }
+    }
+
+    .alert {
+        animation: fadeIn 0.8s ease;
+    }
+    </style>
     <div id="app">
         <section class="section">
             <div class="container mt-5">
@@ -11,48 +26,91 @@
                     <div
                         class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
                         <div class="login-brand">
-                            <img src="../assets/img/stisla-fill.svg"
+                            <img src="<?= base_url() ?>/assets/images/logos.svg"
                                 alt="logo"
                                 width="100"
-                                class="shadow-light rounded-circle">
+                                class="shadow-info rounded-circle"
+                                style="background-color: #6777ef; padding: 10px;" />
                         </div>
-
+                        <!-- Start Alert Errors -->
+                        <?php if (session('errors')) : ?>
+                        <div class="alert alert-danger alert-dismissible show fade">
+                            <div class="alert-body">
+                                <button class="close"
+                                    data-dismiss="alert">
+                                    <span>&times;</span>
+                                </button>
+                                <?= session('errors') ?>
+                            </div>
+                        </div>
+                        <?php endif; ?>
+                        <!-- End Alert Errors -->
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h4>Register</h4>
+                                <div class="row">
+                                    <a href="#"
+                                        onclick="history.back();"
+                                        class="nav-link nav-link-lg"><i class="fas fa-arrow-left"></i></a>
+                                </div>
+                                <h4 class="ml-2">Register</h4>
                             </div>
-
                             <div class="card-body">
-                                <form method="POST">
+                                <form method="POST"
+                                    action="<?= site_url('auth') ?>">
                                     <div class="row">
                                         <div class="form-group col-6">
-                                            <label for="first_name">First Name</label>
-                                            <input id="first_name"
+                                            <label for="nama_lengkap">Nama Lengkap</label>
+                                            <input id="nama_lengkap"
                                                 type="text"
                                                 class="form-control"
-                                                name="first_name"
+                                                name="nama_lengkap"
                                                 autofocus>
                                         </div>
                                         <div class="form-group col-6">
-                                            <label for="last_name">Last Name</label>
-                                            <input id="last_name"
+                                            <label for="nim">NIM</label>
+                                            <input id="nim"
                                                 type="text"
                                                 class="form-control"
-                                                name="last_name">
+                                                name="nim"
+                                                min="0"
+                                                step="1">
                                         </div>
                                     </div>
-
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input id="email"
-                                            type="email"
-                                            class="form-control"
-                                            name="email">
-                                        <div class="invalid-feedback">
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label for="email">Email</label>
+                                            <input id="email"
+                                                type="email"
+                                                class="form-control"
+                                                name="email">
+                                            <div class="invalid-feedback">
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="role">Role</label>
+                                            <select name="id_role"
+                                                class="form-control selectric">
+                                                <option value=""
+                                                    hidden></option>
+                                                <option value="2">Mahasiswa</option>
+                                            </select>
                                         </div>
                                     </div>
 
                                     <div class="row">
+                                        <div class="form-group col-6">
+                                            <label for="password">Username</label>
+                                            <input id="username"
+                                                type="text"
+                                                class="form-control"
+                                                name="username"
+                                                autofocus>
+                                            <div id="pwindicator"
+                                                class="pwindicator">
+                                                <div class="bar"></div>
+                                                <div class="label"></div>
+                                            </div>
+                                        </div>
                                         <div class="form-group col-6">
                                             <label for="password"
                                                 class="d-block">Password</label>
@@ -67,49 +125,6 @@
                                                 <div class="label"></div>
                                             </div>
                                         </div>
-                                        <div class="form-group col-6">
-                                            <label for="password2"
-                                                class="d-block">Password Confirmation</label>
-                                            <input id="password2"
-                                                type="password"
-                                                class="form-control"
-                                                name="password-confirm">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-divider">
-                                        Your Home
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-6">
-                                            <label>Country</label>
-                                            <select class="form-control selectric">
-                                                <option>Indonesia</option>
-                                                <option>Palestine</option>
-                                                <option>Syria</option>
-                                                <option>Malaysia</option>
-                                                <option>Thailand</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group col-6">
-                                            <label>Province</label>
-                                            <select class="form-control selectric">
-                                                <option>West Java</option>
-                                                <option>East Java</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-6">
-                                            <label>City</label>
-                                            <input type="text"
-                                                class="form-control">
-                                        </div>
-                                        <div class="form-group col-6">
-                                            <label>Postal Code</label>
-                                            <input type="text"
-                                                class="form-control">
-                                        </div>
                                     </div>
 
                                     <div class="form-group">
@@ -119,8 +134,15 @@
                                                 class="custom-control-input"
                                                 id="agree">
                                             <label class="custom-control-label"
-                                                for="agree">I agree with the terms and conditions</label>
+                                                for="agree">Saya sudah yakin dengan data di atas!</label>
                                         </div>
+                                        <!-- Start validasi checkbox -->
+                                        <?php if (isset($validation) && $validation->hasError('agree')): ?>
+                                        <div class="text-danger">
+                                            <?= $validation->getError('agree') ?>
+                                        </div>
+                                        <?php endif; ?>
+                                        <!-- End validasi checkbox -->
                                     </div>
 
                                     <div class="form-group">
@@ -140,31 +162,6 @@
             </div>
         </section>
     </div>
-
-    <!-- General JS Scripts -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="../assets/js/stisla.js"></script>
-
-    <!-- JS Libraies -->
-    <script src="../node_modules/jquery-pwstrength/jquery.pwstrength.min.js"></script>
-    <script src="../node_modules/selectric/public/jquery.selectric.min.js"></script>
-
-    <!-- Template JS File -->
-    <script src="../assets/js/scripts.js"></script>
-    <script src="../assets/js/custom.js"></script>
-
-    <!-- Page Specific JS File -->
-    <script src="../assets/js/page/auth-register.js"></script>
 </body>
 
 </html>

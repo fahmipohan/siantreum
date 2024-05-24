@@ -12,8 +12,8 @@ class AuthController extends BaseController
             'title' => 'Login'
         ];
 
-        if(session()->get('is_logged_in')) {
-            if(session()->get('roles') == 'admin'){
+        if (session()->get('is_logged_in')) {
+            if (session()->get('roles') == 'admin') {
                 return redirect()->to('/dashboard');
             } else {
                 return redirect()->to('/dosen/dashboard');
@@ -22,6 +22,43 @@ class AuthController extends BaseController
 
         return view('login', $data);
     }
+
+    public function registrasi()
+    {
+        $validationRules = [
+            'nama_lengkap' => 'required',
+            'nim' => 'required',
+            'email' => 'required|valid_email',
+            'role' => 'required',
+            'username' => 'required|is_unique[users.username]',
+            'password' => 'required',
+            'agree' => 'required',
+        ];
+
+        if ($this->validate($validationRules)) {
+
+            $data = [
+                'nama_lengkap' => $this->request->getVar('nama_lengkap'),
+                'nim' => $this->request->getVar('nim'),
+                'email' => $this->request->getVar('email'),
+                'role' => $this->request->getVar('role'),
+                'username' => $this->request->getVar('username'),
+                'password' => $this->request->getVar('password'),
+            ];
+
+            $this->daftarmahasiswaModel->createUser($data);
+            session()->setFlashdata('success', 'Berhasil Menambahkan Data');
+            return redirect()->to('login');
+        } else {
+
+            $data = [
+                'title' => 'Register',
+            ];
+
+            return view('register', $data);
+        }
+    }
+
 
     public function auth()
     {
@@ -34,7 +71,7 @@ class AuthController extends BaseController
 
         if ($user && password_verify($password, $user['password'])) {
             $this->setUserSession($user);
-            if(session()->get('roles') == 'admin'){
+            if (session()->get('roles') == 'admin') {
                 return redirect()->to('/dashboard');
             } else {
                 return redirect()->to('/dosen/dashboard');
@@ -48,8 +85,8 @@ class AuthController extends BaseController
     public function setUserSession($user)
     {
         $data = [
-            'id'    => $user['id'],
-            'nama'  => $user['nama'],
+            'id' => $user['id'],
+            'nama' => $user['nama'],
             'username' => $user['username'],
             'is_logged_in' => TRUE,
             'roles' => ($user['role_id'] == 1) ? 'admin' : 'dosen'

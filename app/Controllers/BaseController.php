@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\AntreanModel;
 use App\Models\DataAntreModel;
 use App\Models\UserModel;
+use App\Models\DaftarMahasiswaModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
@@ -43,6 +44,7 @@ abstract class BaseController extends Controller
     protected $antreanModel;
     protected $userModel;
     protected $dataModel;
+    protected $daftarmahasiswaModel;
 
     protected $session;
 
@@ -67,6 +69,7 @@ abstract class BaseController extends Controller
         $this->antreanModel = new AntreanModel();
         $this->dataModel = new DataAntreModel();
         $this->userModel = new UserModel();
+        $this->daftarmahasiswaModel = new DaftarMahasiswaModel();
         $this->session = \Config\Services::session();
     }
 }

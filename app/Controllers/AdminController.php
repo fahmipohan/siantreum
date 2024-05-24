@@ -24,7 +24,6 @@ class AdminController extends BaseController
     {
         $data = [
             'title' => 'Profil',
-            
         ];
         return view('admin/Profil', $data);
     }

@@ -32,6 +32,7 @@
                                 class="shadow-info rounded-circle"
                                 style="background-color: #6777ef; padding: 10px;" />
                         </div>
+                        <!-- Start Alert Errors -->
                         <?php if (session('errors')) : ?>
                         <div class="alert alert-danger alert-dismissible show fade">
                             <div class="alert-body">
@@ -43,6 +44,7 @@
                             </div>
                         </div>
                         <?php endif; ?>
+                        <!-- End Alert Errors -->
                         <div class="card card-primary">
                             <div class="card-header">
                                 <div class="row">

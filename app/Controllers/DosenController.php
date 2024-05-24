@@ -22,15 +22,6 @@ class DosenController extends BaseController
             $jumlahAntre = 0;
         }
 
-        // $data = [
-        //     'title' => 'Dashboard Dosen',
-        //     'antre' => $this->dataModel->getAntreanByUserId($userId),
-        //     'current_antre' => $antre['current_antre'],
-        //     'next_antre'    => $antre['current_antre'] + 1,
-        //     'total_antre'   => $this->dataModel->countAntreanByUserId($userId),
-        //     'sisa_antre'    => $antre['jumlah_antrean'] - $antre['current_antre']
-        // ];
-
         $data = [
             'title' => 'Dashboard Dosen',
             'antre' => $this->dataModel->getAntreanByUserId($userId),

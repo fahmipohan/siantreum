@@ -84,6 +84,8 @@ $this->section('konten');
         </div>
     </div>
 </section>
+
+<!-- Start Form Tambah Dosen -->
 <div class="modal fade"
     tabindex="-1"
     role="dialog"
@@ -176,4 +178,5 @@ $this->section('konten');
         </form>
     </div>
 </div>
+<!-- End Form Tambah Dosen -->
 <?php $this->endSection() ?>

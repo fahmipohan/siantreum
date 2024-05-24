@@ -24,6 +24,8 @@
     <!-- CSS Libraries -->
     <link rel="stylesheet"
         href="<?php base_url()?>/template/modules/prismjs/themes/prism.css">
+    <link rel="stylesheet"
+        href="<?php base_url()?>/template/node_modules/selectric/public/selectric.css">
 
     <title> <?php echo $title ?> </title>
 
