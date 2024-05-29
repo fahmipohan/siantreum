@@ -4,15 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserModel extends Model
+class UserLoginModel extends Model
 {
     protected $table            = 'users';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_users';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['username', 'password', 'nama', 'email', 'prodi', 'role_id', 'antrean_id'];
+    protected $allowedFields    = ['username', 'password', 'nama', 'email', 'prodi', 'id_role', 'antrean_id'];
 
     protected bool $allowEmptyInserts = false;
 
@@ -42,12 +42,12 @@ class UserModel extends Model
 
     public function getUsersByRole($role)
     {
-        return $this->where('role_id', $role)->paginate(5);
+        return $this->where('id_role', $role)->paginate(5);
     }
 
     public function getTotal($role)
     {
-        return $this->where('role_id', $role)->countAllResults();
+        return $this->where('id_role', $role)->countAllResults();
     }
 
     public function getUserById($id)

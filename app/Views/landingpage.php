@@ -188,8 +188,8 @@
                 </div>
             </div>
             <!-- row -->
-            <div class="row justify-content-center">
-                <div class="card-body p-1 wow fadeInUp"
+            <div class="row">
+                <div class="card-body wow fadeInUp"
                     data-wow-duration="1.3s"
                     data-wow-delay="0.2s">
                     <div class="table-responsive"
@@ -199,6 +199,8 @@
                                 <th>No</th>
                                 <th>Nama Mahasiswa</th>
                                 <th>NIM</th>
+                                <th>Fakultas</th>
+                                <th>Departemen</th>
                                 <th>Prodi</th>
                                 <th>Tanggal</th>
                                 <th>Keterangan</th>
@@ -210,30 +212,12 @@
                             <tr>
                                 <td> <?= $antre + 1 ?> </td>
                                 <td> <?= $value['dosen_nama'] ?> </td>
+                                <td> <?= $value['dosen_nama'] ?> </td>
+                                <td> <?= $value['dosen_nama'] ?> </td>
                                 <td> <?= $value['jumlah_antrean'] ?> </td>
                                 <td> <?= $value['maks_antrean'] ?> </td>
                                 <td> <?= date('d-m-Y', strtotime($value['tanggal'])) ?> </td>
                                 <td> <?= $value['keterangan'] ?? "-" ?> </td>
-                                <!-- <td>
-                                    <div class="d-flex justify-content-center">
-                                        <?php if ($value['jumlah_antrean'] == $value['maks_antrean']): ?>
-                                        Antrean Penuh
-                                        <?php else: ?>
-                                        <form method="POST"
-                                            action="<?= base_url() ?>/ambil_antrean/save"
-                                            onsubmit="return confirm('Apakah Anda yakin ingin mengambil antrean?');">
-                                            <input type="hidden"
-                                                name="id_dosen"
-                                                value="<?= $value['id'] ?>">
-                                            <button type="submit"
-                                                class="btn btn-icon btn-info mr-2"
-                                                style="background-color: #0d6efd; border-radius: 100%"><i
-                                                    class="fas fa-plus"
-                                                    style="color: white;"></i></button>
-                                        </form>
-                                        <?php endif; ?>
-                                    </div>
-                                </td> -->
                             </tr>
                             <?php endforeach; ?>
                         </table>

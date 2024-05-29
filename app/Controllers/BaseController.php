@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\AntreanModel;
 use App\Models\DataAntreModel;
-use App\Models\UserModel;
+use App\Models\UserloginModel;
 use App\Models\DaftarMahasiswaModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
@@ -42,7 +42,7 @@ abstract class BaseController extends Controller
     protected $helpers = ['form', 'url'];
     protected $validation;
     protected $antreanModel;
-    protected $userModel;
+    protected $userloginModel;
     protected $dataModel;
     protected $daftarmahasiswaModel;
 
@@ -68,7 +68,7 @@ abstract class BaseController extends Controller
         $this->validation = \Config\Services::validation();
         $this->antreanModel = new AntreanModel();
         $this->dataModel = new DataAntreModel();
-        $this->userModel = new UserModel();
+        $this->userloginModel = new UserloginModel();
         $this->daftarmahasiswaModel = new DaftarMahasiswaModel();
         $this->session = \Config\Services::session();
     }

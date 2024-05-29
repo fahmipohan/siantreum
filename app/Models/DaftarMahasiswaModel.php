@@ -4,15 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
+
 class DaftarMahasiswaModel extends Model
 {
-    protected $table            = 'daftar_mahasiswa';
-    protected $primaryKey       = 'id_daftar_mahasiswa';
+    protected $table            = 'users';
+    protected $primaryKey       = 'id_users';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nama_lengkap', 'nim', 'email', 'username', 'password', 'id_role'];
+    protected $allowedFields    = ['nama_lengkap', 'nim', 'kontak', 'username', 'password', 'nama', 'email', 'id_role'];
 
     protected bool $allowEmptyInserts = false;
 

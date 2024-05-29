@@ -32,19 +32,17 @@
                                 class="shadow-info rounded-circle"
                                 style="background-color: #6777ef; padding: 10px;" />
                         </div>
+
                         <!-- Start Alert Errors -->
                         <?php if (session('errors')) : ?>
                         <div class="alert alert-danger alert-dismissible show fade">
-                            <div class="alert-body">
-                                <button class="close"
-                                    data-dismiss="alert">
-                                    <span>&times;</span>
-                                </button>
+                            <div class="alert-body d-flex justify-content-center">
                                 <?= session('errors') ?>
                             </div>
                         </div>
                         <?php endif; ?>
                         <!-- End Alert Errors -->
+
                         <div class="card card-primary">
                             <div class="card-header">
                                 <div class="row">
@@ -56,7 +54,7 @@
                             </div>
                             <div class="card-body">
                                 <form method="POST"
-                                    action="<?= site_url('auth') ?>"
+                                    action="<?= site_url('authLogin') ?>"
                                     class="needs-validation"
                                     novalidate="">
                                     <div class="form-group">
@@ -68,9 +66,6 @@
                                             tabindex="1"
                                             required
                                             autofocus>
-                                        <!-- <div class="invalid-feedback">
-                                            Please fill in your username
-                                        </div> -->
                                     </div>
                                     <div class="form-group">
                                         <div class="d-block">
@@ -83,9 +78,6 @@
                                             name="password"
                                             tabindex="2"
                                             required>
-                                        <!-- <div class="invalid-feedback">
-                                            Please fill in your password
-                                        </div> -->
                                     </div>
                                     <div class="form-group">
                                         <button type="submit"
@@ -98,7 +90,7 @@
                             </div>
                         </div>
                         <P class="d-flex justify-content-center">Belum Punya Akun? Silahkan&nbsp;
-                            <a href="<?= site_url('register') ?>">Daftar</a>
+                            <a href="<?= site_url('registrasi') ?>">Daftar</a>
                         </P>
                         <h6 class="simple-footer">
                             Copyright &copy; Connecting Dots Nusa

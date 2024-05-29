@@ -24,26 +24,27 @@ $routes->group('', ['filter' => 'role:admin'], function ($routes) {
     $routes->post('/kelola_antrean/update/(:num)', 'AdminController::updateAntrean/$1');
 });
 
-$routes->group('dosen', ['filter' => 'role:dosen'], function($routes){
-    $routes->get('dashboard', 'DosenController::index');
-    $routes->get('kelola_antrean', 'DosenController::indexAntrean');
-    $routes->get('kelola_antrean/edit', 'DosenController::editAntrean');
-    $routes->post('kelola_antrean/update/(:num)', 'DosenController::updateAntrean/$1');
-    $routes->get('next_queue', 'DosenController::nextAntrean');
-    $routes->get('reset_queue', 'DosenController::resetAntrean');
+$routes->group('dosen', ['filter' => 'role:mahasiswa'], function($routes){
+    $routes->get('dashboard', 'MahasiswaController::index');
+    $routes->get('kelola_antrean', 'MahasiswaController::indexAntrean');
+    $routes->get('kelola_antrean/edit', 'MahasiswaController::editAntrean');
+    $routes->post('kelola_antrean/update/(:num)', 'MahasiswaController::updateAntrean/$1');
+    $routes->get('next_queue', 'MahasiswaController::nextAntrean');
+    $routes->get('reset_queue', 'MahasiswaController::resetAntrean');
 });
 
 $routes->group('', function ($routes) {
     $routes->get('/login', 'AuthController::index');
     $routes->get('/logout', 'AuthController::logout');
-    $routes->get('/register', 'AuthController::registrasi');
-    $routes->post('/auth', 'AuthController::auth');
+    $routes->get('/registrasi', 'AuthController::registrasi');
+    $routes->post('/authRegistrasi', 'AuthController::authRegistrasi');
+    $routes->post('/authLogin', 'AuthController::authLogin');
 });
 
-$routes->get('ambil_antrean', 'DosenController::indexData');
+$routes->get('ambil_antrean', 'MahasiswaController::indexData');
 $routes->get('monitor_antrean', 'Home::monitorAntrean');
-$routes->get('getqueue', 'DosenController::getQueueData');
-$routes->post('ambil_antrean/save', 'DosenController::storeDataAntrean');
+$routes->get('getqueue', 'MahasiswaController::getQueueData');
+$routes->post('ambil_antrean/save', 'MahasiswaController::storeDataAntrean');
 
 
 // errors

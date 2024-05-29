@@ -108,11 +108,8 @@ class DosenController extends BaseController
         $uuid = Uuid::uuid4();
         $kode_verif = substr($uuid, 0, 4);
         $id_dosen = $this->request->getVar('id_dosen');
-
         $lastNumber = $this->dataModel->where('antrean_id', $id_dosen)->select('no_urut')->orderBy('id', 'DESC')->first();
-
         $lastNumber = $lastNumber ? $lastNumber['no_urut'] : 0;
-
         $no_urut = $lastNumber + 1;
 
         $data = [

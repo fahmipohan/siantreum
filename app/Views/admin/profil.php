@@ -7,7 +7,7 @@ $this->section('konten');
         <h1>Profil</h1>
     </div>
     <div class="row">
-
+    
     </div>
 </section>
 <?php $this->endSection() ?>

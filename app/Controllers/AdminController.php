@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\UserModel;
+use App\Models\userloginModel;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
@@ -13,8 +13,8 @@ class AdminController extends BaseController
     {
         $data = [
             'title' => 'Dashboard',
-            'total_dosen' => $this->userModel->getTotal(2),
-            'total_admin' => $this->userModel->getTotal(1),
+            'total_dosen' => $this->userloginModel->getTotal(2),
+            'total_admin' => $this->userloginModel->getTotal(1),
             'total_antrean' => $this->antreanModel->query("SELECT SUM(jumlah_antrean) as total FROM antrean")->getRow()->total,
         ];
         return view('admin/dashboard', $data);
@@ -30,7 +30,7 @@ class AdminController extends BaseController
 
     public function indexDosen()
     {
-        $model = new UserModel();
+        $model = new UserLoginModel();
         $data = [
             'dosen' => $model->getUsersByRole(2),
             'pager' => $model->pager,
@@ -58,9 +58,9 @@ class AdminController extends BaseController
                 'nama' => $this->request->getPost('nama'),
                 'email' => $this->request->getPost('email'),
                 'prodi' => $this->request->getPost('prodi'),
-                'role_id' => 2
+                'id_role' => 2
             ];
-            $this->userModel->createUser($data);
+            $this->userloginModel->createUser($data);
             return redirect()->back()->withInput()->with('success', 'Berhasil Menambahkan Data');
         } else {
             return redirect()->back()->withInput()->with('errors', 'Kesalahan dalam Inputan');
@@ -69,10 +69,10 @@ class AdminController extends BaseController
 
     public function deleteDosen($id)
     {
-        $user = $this->userModel->getUserById($id);
+        $user = $this->userloginModel->getUserById($id);
 
-        if ($user && $user['role_id'] == 2) {
-            $this->userModel->deleteUser($id);
+        if ($user && $user['id_role'] == 2) {
+            $this->userloginModel->deleteUser($id);
             return redirect('kelola_dosen')->back()->with('success', 'Berhasil Menghapus Data Dosen');
         } else {
             throw new PageNotFoundException();
@@ -82,7 +82,7 @@ class AdminController extends BaseController
     public function editDosen()
     {
         $id = $this->request->getGet('id');
-        $user = $this->userModel->getUserById($id);
+        $user = $this->userloginModel->getUserById($id);
 
         $data = [
             'user' => $user,
@@ -107,10 +107,10 @@ class AdminController extends BaseController
             'prodi' => $this->request->getPost('prodi'),
         ];
 
-        $user = $this->userModel->getUserById($id);
+        $user = $this->userloginModel->getUserById($id);
 
-        if ($user && $user['role_id'] == 2) {
-            $this->userModel->updateUser($id, $data);
+        if ($user && $user['id_role'] == 2) {
+            $this->userloginModel->updateUser($id, $data);
             return redirect()->to('/kelola_dosen')->with('success', 'Data Berhasil Diperbaharui');
         } else {
             throw new PageNotFoundException();
@@ -132,7 +132,7 @@ class AdminController extends BaseController
 
         $data = [
             'title' => 'Kelola Antrean',
-            'dosen' => $this->userModel->getUsersByRole(2),
+            'dosen' => $this->userloginModel->getUsersByRole(2),
             'antre' => $antreans,
             'pager' => $this->antreanModel->pager,
             'tanggal' => $date
@@ -153,7 +153,7 @@ class AdminController extends BaseController
         $antreanId = $this->antreanModel->createAntrean($data);
         $userId = $this->request->getVar('optionDosen');
 
-        $this->userModel->update($userId, ['antrean_id' => $antreanId]);
+        $this->userloginModel->update($userId, ['antrean_id' => $antreanId]);
 
         return redirect('kelola_antrean')->back()->with('success', 'Berhasil Menambahkan Data');
     }
@@ -166,7 +166,7 @@ class AdminController extends BaseController
             throw new PageNotFoundException();
         }
 
-        $this->userModel->where('antrean_id', $id)->set('antrean_id', NULL)->update();
+        $this->userloginModel->where('antrean_id', $id)->set('antrean_id', NULL)->update();
         $this->antreanModel->deleteAntrean($id);
 
         return redirect('kelola_antrean')->back()->with('success', 'Berhasil Menghapus Data Antrean');

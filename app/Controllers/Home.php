@@ -11,7 +11,7 @@ class Home extends BaseController
     {
         $antreans = $this->antreanModel
             ->select('antrean.*, users.nama as dosen_nama')
-            ->join('users', 'antrean.dosen_id = users.id')
+            ->join('users', 'antrean.dosen_id = users.id_users')
             ->paginate(10);
 
         $data = [
@@ -27,7 +27,7 @@ class Home extends BaseController
     {
         $antreans = $this->antreanModel
             ->select('antrean.*, users.nama as dosen_nama')
-            ->join('users', 'antrean.dosen_id = users.id')
+            ->join('users', 'antrean.dosen_id = users.id_users')
             ->get()
             ->getResultArray();
 

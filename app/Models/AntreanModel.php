@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class AntreanModel extends Model
 {
     protected $table            = 'antrean';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_antrean';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
