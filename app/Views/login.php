@@ -34,10 +34,21 @@
                         </div>
 
                         <!-- Start Alert Errors -->
-                        <?php if (session('errors')) : ?>
-                        <div class="alert alert-danger alert-dismissible show fade">
-                            <div class="alert-body d-flex justify-content-center">
+                        <?php if (session('errors') || session('success')) : ?>
+                        <div class="alert alert-dismissible show fade <?= session('errors') ? 'alert-danger' : 'alert-success' ?>"
+                            role="alert">
+                            <div class="alert-body d-flex">
+                                <!-- Start Pesan error -->
+                                <?php if (session('errors')): ?>
                                 <?= session('errors') ?>
+                                <?php endif; ?>
+                                <!-- End Pesan error -->
+
+                                <!-- Start Pesan Sukses -->
+                                <?php if (session('success')): ?>
+                                <?= session('success') ?>
+                                <?php endif; ?>
+                                <!-- End Pesan Sukses -->
                             </div>
                         </div>
                         <?php endif; ?>

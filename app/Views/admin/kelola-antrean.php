@@ -4,7 +4,7 @@ $this->section('konten');
 ?>
 <section class="section">
     <div class="section-header">
-        <h1>Kelola Antrean</h1>
+        <h1>Layout</h1>
     </div>
     <div class="d-flex justify-content-end">
         <a href="#"
@@ -116,8 +116,8 @@ $this->section('konten');
                             class="form-control"
                             name="optionDosen">
                             <option selected>-- Pilih Dosen --</option>
-                            <?php foreach ($dosen as $dosen => $value): ?>
-                            <option value="<?= $value['id'] ?>"><?php echo $value['nama'] ?></option>
+                            <?php foreach ($mahasiswa as $mahasiswa => $value): ?>
+                            <option value="<?= $value['id_users'] ?>"><?php echo $value['nama_lengkap'] ?></option>
                             <?php endforeach; ?>
                         </select>
                     </div>

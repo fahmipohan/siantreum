@@ -1,10 +1,10 @@
 <?php
- $this->extend('layout/template');
- $this->section('konten');
- ?>
+$this->extend('layout/template');
+$this->section('konten');
+?>
 <section class="section">
     <div class="section-header">
-        <h1>Dashboard</h1>
+        <h1>Profil</h1>
     </div>
     <div class="row">
         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
@@ -79,11 +79,10 @@
                 class="btn btn-icon icon-left btn-success mb-3"><i class="fas fa-arrow-right"></i>Antrean
                 Selanjutnya</a>
         </div>
-
     </div>
     <div class="row">
         <div class="col-12 col-md-12 col-lg-12">
-            <?php if (session('errors') || session('success')) : ?>
+            <?php if (session('errors') || session('success')): ?>
             <div class="alert alert-dismissible show fade <?= session('errors') ? 'alert-danger' : 'alert-success' ?>"
                 role="alert">
                 <div class="alert-body">
@@ -91,13 +90,17 @@
                         data-dismiss="alert">
                         <span>&times;</span>
                     </button>
-                    <?php if (session('errors')) : ?>
+                    <!-- Start Pesan error -->
+                    <?php if (session('errors')): ?>
                     <?= session('errors') ?>
                     <?php endif ?>
+                    <!-- End Pesan error -->
 
-                    <?php if (session('success')) : ?>
+                    <!-- Start Pesan Sukses -->
+                    <?php if (session('success')): ?>
                     <?= session('success') ?>
                     <?php endif ?>
+                    <!-- End Pesan Sukses -->
                 </div>
             </div>
             <?php endif; ?>
@@ -114,7 +117,7 @@
                                 <th>Kode Verif</th>
                                 <th>Antrean Ke</th>
                             </tr>
-                            <?php foreach ($antre as $antre => $value) : ?>
+                            <?php foreach ($antre as $antre => $value): ?>
                             <tr>
                                 <td> <?= $antre + 1 ?> </td>
                                 <td style="text-transform:uppercase; font-weight: bold;"> <?= $value['kode_verif'] ?>
@@ -137,4 +140,4 @@
 
     </div>
 </section>
-<?php $this->endSection()?>
+<?php $this->endSection() ?>

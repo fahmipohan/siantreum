@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class DataAntreModel extends Model
 {
     protected $table            = 'data_antrean';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'id_data_antrean';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
@@ -46,8 +46,8 @@ class DataAntreModel extends Model
     {
         return $this->db->table('data_antrean')
             ->select('data_antrean.*')
-            ->join('antrean', 'data_antrean.antrean_id = antrean.id')
-            ->where('antrean.dosen_id', $id)
+            ->join('antrean', 'data_antrean.id_antrean = antrean.id_antrean')
+            ->where('antrean.id_users', $id)
             ->get()
             ->getResultArray();
     }
@@ -56,23 +56,23 @@ class DataAntreModel extends Model
     {
         return $this->db->table('data_antrean')
             ->select('data_antrean.*')
-            ->join('antrean', 'data_antrean.antrean_id = antrean.id')
-            ->where('antrean.dosen_id', $id)
+            ->join('antrean', 'data_antrean.id_antrean = antrean.id_antrean')
+            ->where('antrean.id_users', $id)
             ->countAllResults();
     }
 
     public function resetQueue($id)
     {
         $antrean_id = $this->db->table('antrean')
-            ->select('id')
-            ->where('dosen_id', $id)
+            ->select('id_antrean')
+            ->where('id_users', $id)
             ->get()
             ->getRow()->id;
 
 
         // Delete rows from data_antrean based on antrean_id
         return $this->db->table('data_antrean')
-            ->where('antrean_id', $antrean_id)
+            ->where('id_antrean', $antrean_id)
             ->delete();
     }
 }

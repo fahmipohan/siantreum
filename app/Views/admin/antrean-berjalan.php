@@ -59,26 +59,49 @@ $this->section('konten');
                 </div>
             </div>
         </div>
+        <!-- <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+            <div class="card card-statistic-1">
+                <div class="card-icon bg-success">
+                    <i class="fas fa-circle"></i>
+                </div>
+                <div class="card-wrap">
+                    <div class="card-header">
+                        <h4>Total Log</h4>
+                    </div>
+                    <div class="card-body">
+                    </div>
+                </div>
+            </div>
+        </div> -->
     </div>
     <div class="section-header">
-        <h1>Antrian Berjalan</h1>
+        <h1>Antrean Berjalan</h1>
         <div class="section-header-breadcrumb">
             <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-            <div class="breadcrumb-item">Antrian Berjalan</div>
+            <div class="breadcrumb-item">Antrean Berjalan</div>
         </div>
     </div>
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-12 col-md-12 col-lg-12 d-flex justify-content-between">
             <a href="#"
                 class="btn btn-icon icon-left btn-danger mb-3"
                 data-confirm="Yakin?|Apakah anda ingin melakukan reset pada antrean saat ini?"
-                data-confirm-yes="window.location.href = '<?= site_url('dosen/reset_queue') ?>';"><i
-                    class="fas fa-trash"></i>Reset Antrean</a>
-            <a href="<?= site_url('dosen/next_queue') ?>"
+                data-confirm-yes="window.location.href = '#';"><i class="fas fa-trash"></i>Reset Antrean</a>
+            <a href="#"
                 class="btn btn-icon icon-left btn-success mb-3"><i class="fas fa-arrow-right"></i>Antrean
                 Selanjutnya</a>
         </div>
-    </div>
+        <div class="col-12 col-md-12 col-lg-12 d-flex justify-content-between">
+            <a href="#"
+                class="btn btn-icon icon-left btn-danger mb-3"
+                data-confirm="Yakin?|Apakah anda ingin melakukan reset pada antrean saat ini?"
+                data-confirm-yes="window.location.href = '<?= site_url('mahasiswa/reset_queue') ?>';"><i
+                    class="fas fa-trash"></i>Reset Antrean</a>
+            <a href="<?= site_url('mahasiswa/next_queue') ?>"
+                class="btn btn-icon icon-left btn-success mb-3"><i class="fas fa-arrow-right"></i>Antrean
+                Selanjutnya</a>
+        </div>
+    </div> -->
     <div class="row">
         <div class="card-body wow fadeInUp"
             data-wow-duration="1.3s"
@@ -95,28 +118,30 @@ $this->section('konten');
                         <th>Prodi</th>
                         <th>Tanggal</th>
                         <th>Keterangan</th>
-                        <th>Status</th>
+                        <!-- <th>
+                            <div class="d-flex justify-content-center">Ambil Antrean</div>
+                        </th> -->
                     </tr>
-                    <?php foreach ($antre as $index => $value): ?>
+                    <?php foreach ($approve as $index => $value): ?>
                     <tr>
                         <td> <?= $index + 1 ?> </td>
-                        <td> <?= $value['mahasiswa_nama'] ?> </td>
+                        <td> <?= $value['nama_lengkap'] ?> </td>
                         <td> <?= $value['nim'] ?> </td>
-                        <td> <?= $fakultas[$value['fakultas']] ?? 'Tidak diketahui' ?> </td>
-                        <td> <?= $departemen[$value['departemen']] ?? 'Tidak diketahui' ?> </td>
-                        <td> <?= $prodi[$value['prodi']] ?? 'Tidak diketahui' ?> </td>
-                        <td> <?= date('d-m-Y', strtotime($value['tanggal'])) ?> </td>
-                        <td> <?= $value['keterangan'] ?? "-" ?> </td>
+                        <td> <?= $value['fakultas_mahasiswa'] ?> </td>
+                        <td> <?= $value['departemen'] ?> </td>
+                        <td> <?= $value['program_studi']?> </td>
+                        <td> <?= date('d-m-Y', strtotime($value['tgl_rencana'])) ?> </td>
                         <td>
                             <?php
-                            $badgeClass = 'badge-warning';
-                            if ($value['status'] === 'approved') {
-                                $badgeClass = 'badge-success';
-                            } elseif ($value['status'] === 'rejected') {
-                                $badgeClass = 'badge-danger';
-                            }
-                            ?>
-                            <div class="badge <?= $badgeClass ?>"><?= ucfirst($value['status']) ?></div>
+                                    $badgeClass = 'badge-warning';
+                                    if ($value['status_approval'] === 'approved') {
+                                        $badgeClass = 'badge-success';
+                                    } elseif ($value['status_approval'] === 'rejected') {
+                                        $badgeClass = 'badge-danger';
+                                    }
+                                    ?>
+                            <div class="badge <?= $badgeClass ?>"><?= ucfirst($value['status_approval']) ?>
+                            </div>
                         </td>
                     </tr>
                     <?php endforeach; ?>
@@ -127,7 +152,8 @@ $this->section('konten');
                 data-wow-delay="0.2s"
                 style="border-end-end-radius: 8px; border-end-start-radius: 8px">
                 <nav class="d-inline-block">
-                    <?= $pager->links('default', 'pagination') ?>
+                    <!-- pager here -->
+                    <?= (count($approve) > 10) ? $pager->links('default', 'pagination') : false?>
                 </nav>
             </div>
         </div>

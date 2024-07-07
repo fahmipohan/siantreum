@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?= view('layout/header') ?>
+<?= $this->include('layout/header') ?>
 
 <body>
     <style>
@@ -32,24 +32,20 @@
                                 class="shadow-info rounded-circle"
                                 style="background-color: #6777ef; padding: 10px;" />
                         </div>
-                        <?php if (session('errors') && !empty(old(''))): ?>
+
+                        <?php if (session('errors')): ?>
                         <div class="alert alert-dismissible show fade <?= session('errors') ? 'alert-danger' : 'alert-success' ?>"
                             role="alert">
                             <div class="alert-body d-flex">
-                                <!-- Start Pesan Sukses -->
-                                <?php if (session('success')): ?>
-                                <?= session('success') ?>
-                                <?php endif; ?>
-                                <!-- End Pesan Sukses -->
-
                                 <!-- Start Pesan error -->
-                                <?php foreach ($validation->getErrors() as $error) : ?>
-                                <?= session($error) ?>
-                                <?php endforeach ?>
+                                <?php if (session('errors')): ?>
+                                <?= session('errors') ?>
+                                <?php endif; ?>
                                 <!-- End Pesan error -->
                             </div>
                         </div>
                         <?php endif; ?>
+
                         <div class="card card-primary">
                             <div class="card-header">
                                 <div class="row">
@@ -60,135 +56,149 @@
                                 <h4 class="ml-2">Register</h4>
                             </div>
                             <div class="card-body">
-                                <form method="POST"
-                                    action="<?= site_url('authRegistrasi') ?>">
+                                <form action="<?= site_url('authRegistrasi') ?>"
+                                    method="POST">
                                     <div class="row">
                                         <div class="form-group col-6">
                                             <label for="nama_lengkap">Nama Lengkap</label>
                                             <input id="nama_lengkap"
                                                 type="text"
-                                                class="form-control <?= !empty(old('nama_lengkap')) && $validation->hasError('nama_lengkap') ? 'is-invalid' : '' ?>"
+                                                class="form-control"
                                                 name="nama_lengkap"
                                                 autofocus
-                                                value="<?= old('nama_lengkap') ?>">
-                                            <?php if (!empty(old('nama_lengkap')) && $validation->hasError('nama_lengkap')): ?>
-                                            <div class="invalid-feedback">
-                                                <?= $validation->getError('nama_lengkap') ?>
-                                            </div>
-                                            <?php endif; ?>
+                                                value="">
                                         </div>
                                         <div class="form-group col-6">
                                             <label for="nim">NIM</label>
                                             <input id="nim"
                                                 type="number"
-                                                class="form-control <?= !empty(old('nim')) && $validation->hasError('nim') ? 'is-invalid' : '' ?>"
+                                                class="form-control"
                                                 name="nim"
                                                 min="0"
                                                 step="1"
-                                                value="<?= old('nim') ?>">
-                                            <?php if (!empty(old('nim')) && $validation->hasError('nim')): ?>
-                                            <div class="invalid-feedback">
-                                                <?= $validation->getError('nim') ?>
-                                            </div>
-                                            <?php endif; ?>
+                                                value="">
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input id="email"
-                                            type="email"
-                                            class="form-control <?= !empty(old('email'))  && $validation->hasError('email') ? 'is-invalid' : '' ?>"
-                                            name="email"
-                                            value="<?= old('email') ?>">
-                                        <?php if (!empty(old('email'))  && $validation->hasError('email')): ?>
-                                        <div class="invalid-feedback">
-                                            <?= $validation->getError('email') ?>
-                                        </div>
-                                        <?php endif; ?>
                                     </div>
                                     <div class="row">
+                                        <div class="form-group col-6">
+                                            <label for="email">Email Pribadi/Email Instansi</label>
+                                            <input id="email"
+                                                type="email"
+                                                class="form-control"
+                                                name="email"
+                                                value="">
+                                        </div>
                                         <div class="form-group col-6">
                                             <label for="kontak">No Telp</label>
                                             <input id="kontak"
-                                                type="number"
-                                                class="form-control <?= !empty(old('kontak'))  && $validation->hasError('kontak') ? 'is-invalid' : '' ?>"
+                                                type="tel"
+                                                class="form-control"
                                                 name="kontak"
-                                                min="0"
-                                                step="1"
-                                                value="<?= old('kontak') ?>">
-                                            <?php if (!empty(old('kontak'))  && $validation->hasError('kontak')): ?>
-                                            <div class="invalid-feedback">
-                                                <?= $validation->getError('kontak') ?>
-                                            </div>
-                                            <?php endif; ?>
-                                        </div>
-                                        <div class="form-group col-6">
-                                            <label for="role">Role</label>
-                                            <select name="id_role"
-                                                class="form-control <?= !empty(old('id_role'))  && $validation->hasError('id_role') ? 'is-invalid' : '' ?>"
-                                                value="<?= old('id_role') ?>">
-                                                <option value=""
-                                                    hidden></option>
-                                                <option value="2">Mahasiswa</option>
-                                            </select>
-                                            <?php if (!empty(old('id_role'))  && $validation->hasError('id_role')): ?>
-                                            <div class="invalid-feedback">
-                                                <?= $validation->getError('id_role') ?>
-                                            </div>
-                                            <?php endif; ?>
+                                                pattern="[0-9]{4}[0-9]{4}[0-9]{4}"
+                                                placeholder="08XXXXXXXXXX"
+                                                value="">
                                         </div>
                                     </div>
-
                                     <div class="row">
                                         <div class="form-group col-6">
-                                            <label for="password">Username</label>
+                                            <label for="role">Sebagai</label>
+                                            <select class="form-control selectric"
+                                                name="id_role"
+                                                value="">
+                                                <option hidden
+                                                    value=""></option>
+                                                <option value="2">Mahasiswa</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="tgl_rencana">Tanggal direncanakan</label>
+                                            <input id="tgl_rencana"
+                                                type="date"
+                                                class="form-control datepicker"
+                                                name="tgl_rencana"
+                                                value="">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label for="jenis_kelamin">Jenis Kelamin</label>
+                                            <select class="form-control selectric"
+                                                name="id_jenis_kelamin"
+                                                value="">
+                                                <option hidden
+                                                    value=""></option>
+                                                <option value="1">Laki-laki</option>
+                                                <option value="2">Perempuan</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="fakultas">Fakultas</label>
+                                            <select class="form-control selectric"
+                                                name="id_fakultas_mahasiswa"
+                                                value="">
+                                                <option hidden
+                                                    value=""></option>
+                                                <option value="1">Vokasi</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label for="departemen">Departemen</label>
+                                            <select class="form-control selectric"
+                                                name="id_departemen_mahasiswa"
+                                                value="">
+                                                <option hidden
+                                                    value=""></option>
+                                                <option value="1">Bisnis dan Hospitality</option>
+                                                <option value="2">Industri Kreatif dan Digital</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="prodi">Prodi</label>
+                                            <select class="form-control selectric"
+                                                name="id_prodi_departemen"
+                                                value="">
+                                                <option hidden
+                                                    value=""></option>
+                                                <option value="1">D4 Manajemen Perhotelan</option>
+                                                <option value="2">D3 Keuangan dan Perbankan</option>
+                                                <option value="3">D3 Administrasi Bisnis</option>
+                                                <option value="4">D4 Desain Grafis</option>
+                                                <option value="5">D3 Teknologi Informasi</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label for="username">Username</label>
                                             <input id="username"
                                                 type="text"
-                                                class="form-control <?= !empty(old('username'))  && $validation->hasError('username') ? 'is-invalid' : '' ?>"
+                                                class="form-control"
                                                 name="username"
-                                                value="<?= old('username') ?>"
+                                                value=""
                                                 autofocus>
-                                            <?php if (!empty(old('username'))  && $validation->hasError('username')): ?>
-                                            <div class="invalid-feedback">
-                                                <?= $validation->getError('username') ?>
-                                            </div>
-                                            <?php endif; ?>
                                         </div>
                                         <div class="form-group col-6">
                                             <label for="password"
                                                 class="d-block">Password</label>
                                             <input id="password"
                                                 type="password"
-                                                class="form-control"
                                                 data-indicator="pwindicator"
-                                                <?= !empty(old('password'))  && $validation->hasError('password') ? 'is-invalid' : '' ?>"
+                                                class="form-control"
                                                 name="password">
-                                            <?php if (!empty(old('password'))  && $validation->hasError('password')): ?>
-                                            <div class="invalid-feedback">
-                                                <?= $validation->getError('password') ?>
-                                            </div>
-                                            <?php endif; ?>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox"
                                                 name="agree"
-                                                class="custom-control-input <?= !empty(old('agree')) && $validation->hasError('agree') ? 'is-invalid' : '' ?>"
+                                                class="custom-control-input"
                                                 id="agree">
                                             <label class="custom-control-label"
                                                 for="agree">Saya sudah yakin dengan data di atas!</label>
                                         </div>
-                                        <!-- Start validasi checkbox -->
-                                        <?php if (!empty(old('agree')) && $validation->hasError('agree')): ?>
-                                        <div class="invalid-feedback">
-                                            <?= $validation->getError('agree') ?>
-                                        </div>
-                                        <?php endif; ?>
-                                        <!-- End validasi checkbox -->
                                     </div>
-
                                     <div class="form-group">
                                         <button type="submit"
                                             class="btn btn-primary btn-lg btn-block">
@@ -199,13 +209,14 @@
                             </div>
                         </div>
                         <div class="simple-footer">
-                            Copyright &copy; Stisla 2018
+                            Copyright &copy; SIANTREUM 2024
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </div>
+    <?= $this->include('layout/js') ?>
 </body>
 
 </html>

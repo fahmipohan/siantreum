@@ -12,7 +12,7 @@ class UserLoginModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['username', 'password', 'nama', 'email', 'prodi', 'id_role', 'antrean_id'];
+    protected $allowedFields    = ['username', 'password', 'id_role'];
 
     protected bool $allowEmptyInserts = false;
 
@@ -50,9 +50,9 @@ class UserLoginModel extends Model
         return $this->where('id_role', $role)->countAllResults();
     }
 
-    public function getUserById($id)
+    public function getUserById($id_users)
     {
-        return $this->find($id);
+        return $this->find($id_users);
     }
 
     public function createUser($data)
@@ -60,13 +60,13 @@ class UserLoginModel extends Model
         return $this->insert($data);
     }
 
-    public function deleteUser($id)
+    public function deleteUser($id_users)
     {
-        return $this->delete($id);
+        return $this->delete($id_users);
     }
 
-    public function updateUser($id, $data)
+    public function updateUser($id_users, $data)
     {
-        return $this->update($id, $data);
+        return $this->update($id_users, $data);
     }
 }

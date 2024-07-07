@@ -41,7 +41,7 @@
     <![endif]-->
 
     <!--====== PRELOADER PART START ======-->
-    <div class="preloader">
+    <!-- <div class="preloader">
         <div class="loader">
             <div class="spinner">
                 <div class="spinner-container">
@@ -56,7 +56,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!--====== PRELOADER PART ENDS ======-->
 
     <!--====== HEADER PART START ======-->
@@ -208,16 +208,27 @@
                                     <div class="d-flex justify-content-center">Ambil Antrean</div>
                                 </th> -->
                             </tr>
-                            <?php foreach ($antre as $antre => $value): ?>
+                            <?php foreach ($approve as $indexMahasiswa => $value): ?>
                             <tr>
-                                <td> <?= $antre + 1 ?> </td>
-                                <td> <?= $value['dosen_nama'] ?> </td>
-                                <td> <?= $value['dosen_nama'] ?> </td>
-                                <td> <?= $value['dosen_nama'] ?> </td>
-                                <td> <?= $value['jumlah_antrean'] ?> </td>
-                                <td> <?= $value['maks_antrean'] ?> </td>
-                                <td> <?= date('d-m-Y', strtotime($value['tanggal'])) ?> </td>
-                                <td> <?= $value['keterangan'] ?? "-" ?> </td>
+                                <td> <?= $indexMahasiswa + 1 ?> </td>
+                                <td> <?= $value['nama_lengkap'] ?> </td>
+                                <td> <?= $value['nim'] ?> </td>
+                                <td> <?= $value['fakultas_mahasiswa'] ?> </td>
+                                <td> <?= $value['departemen'] ?> </td>
+                                <td> <?= $value['program_studi']?> </td>
+                                <td> <?= date('d-m-Y', strtotime($value['tgl_rencana'])) ?> </td>
+                                <td>
+                                    <?php
+                                    $badgeClass = 'badge-warning';
+                                    if ($value['status_approval'] === 'approved') {
+                                        $badgeClass = 'text-success y-auto fs-6';
+                                    } elseif ($value['status_approval'] === 'rejected') {
+                                        $badgeClass = 'text-danger y-auto fs-6';
+                                    }
+                                    ?>
+                                    <div class="badge <?= $badgeClass ?>"><?= ucfirst($value['status_approval']) ?>
+                                    </div>
+                                </td>
                             </tr>
                             <?php endforeach; ?>
                         </table>
@@ -229,7 +240,7 @@
                     style="border-end-end-radius: 8px; border-end-start-radius: 8px">
                     <nav class="d-inline-block">
                         <!-- pager here -->
-                        <?= $pager->links('default', 'pagination') ?>
+                        <?= (count($approve) > 10) ? $pager->links('default', 'pagination') : false?>
                     </nav>
                 </div>
             </div>
@@ -244,7 +255,7 @@
     <!--====== FOOTER PART START ======-->
     <footer id="footer"
         class="footer-area pt-240"
-        style="z-index: -2;">
+        style="z-index: 1;">
         <div class="container">
 
             <!-- subscribe area -->
@@ -261,28 +272,34 @@
                                     style="height: 48px; width: 48px" />
                             </a>
                             <p class="text">
-                                Lorem ipsum dolor sit amet consetetur sadipscing elitr,
-                                sederfs diam nonumy eirmod tempor invidunt ut labore et dolore
-                                magna aliquyam.
+                                Pendidikan vokasi adalah pendidikan tinggi yang fokus pada keahlian terapan dari D-I
+                                hingga Doktor Terapan. Tujuannya mengembangkan keterampilan praktis dan adaptasi
+                                pekerjaan. Diselenggarakan di akademi, politeknik, sekolah tinggi, institut, dan
+                                universitas dengan program Diploma 1 hingga 4. Standar pendidikan vokasi didasarkan pada
+                                kompetensi nasional dan internasional.
                             </p>
                             <ul class="social">
                                 <li>
-                                    <a href="javascript:void(0)">
+                                    <a href="https://www.facebook.com/Universitas.Brawijaya.Official/?locale=id_ID"
+                                        target="_blank">
                                         <i class="lni lni-facebook-filled"> </i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)">
+                                    <a href="https://x.com/UB_Official?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"
+                                        target="_blank">
                                         <i class="lni lni-twitter-filled"> </i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)">
+                                    <a href="https://www.instagram.com/univ.brawijaya/"
+                                        target="_blank">
                                         <i class="lni lni-instagram-filled"> </i>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0)">
+                                    <a href="https://www.linkedin.com/school/universitas-brawijaya/?originalSubdomain=id"
+                                        target="_blank">
                                         <i class="lni lni-linkedin-original"> </i>
                                     </a>
                                 </li>
@@ -299,11 +316,11 @@
                                     <h4 class="title">Quick Link</h4>
                                 </div>
                                 <ul class="link">
-                                    <li><a href="javascript:void(0)">Road Map</a></li>
-                                    <li><a href="javascript:void(0)">Privacy Policy</a></li>
-                                    <li><a href="javascript:void(0)">Refund Policy</a></li>
-                                    <li><a href="javascript:void(0)">Terms of Service</a></li>
-                                    <li><a href="javascript:void(0)">Pricing</a></li>
+                                    <li><a href="#">Road Map</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Refund Policy</a></li>
+                                    <li><a href="#">Terms of Service</a></li>
+                                    <li><a href="#">Pricing</a></li>
                                 </ul>
                             </div>
                             <!-- footer wrapper -->
@@ -314,11 +331,11 @@
                                     <h4 class="title">Resources</h4>
                                 </div>
                                 <ul class="link">
-                                    <li><a href="javascript:void(0)">Home</a></li>
-                                    <li><a href="javascript:void(0)">Page</a></li>
-                                    <li><a href="javascript:void(0)">Portfolio</a></li>
-                                    <li><a href="javascript:void(0)">Blog</a></li>
-                                    <li><a href="javascript:void(0)">Contact</a></li>
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="#">Page</a></li>
+                                    <li><a href="#">Portfolio</a></li>
+                                    <li><a href="#">Blog</a></li>
+                                    <li><a href="#">Contact</a></li>
                                 </ul>
                             </div>
                             <!-- footer wrapper -->
@@ -333,12 +350,12 @@
                                 <h4 class="title">Contact Us</h4>
                             </div>
                             <ul class="contact">
-                                <li>+809272561823</li>
-                                <li>info@gmail.com</li>
-                                <li>www.yourweb.com</li>
+                                <li>0341-553240</li>
+                                <li>vokasi@ub.ac.id</li>
+                                <li>vokasi.ub.ac.id</li>
                                 <li>
-                                    123 Stree New York City , United <br />
-                                    States Of America 750.
+                                    Jl. Veteran No 12 – 14, Ketawanggede, <br />
+                                    Malang, Jawa Timur, Indonesia.
                                 </li>
                             </ul>
                         </div>
@@ -354,11 +371,14 @@
                         <div class="copyright d-sm-flex justify-content-between">
                             <div class="copyright-content">
                                 <p class="text">
+                                    Copyright ©2024 All rights reserved
+                                </p>
+                                <!-- <p class="text">
                                     Designed and Developed by
                                     <a href="https://dotsnusa.com"
                                         rel="nofollow"
                                         target="_blank">Connecting Dots Nusa</a>
-                                </p>
+                                </p> -->
                             </div>
                             <!-- copyright content -->
                         </div>

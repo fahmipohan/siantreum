@@ -6,6 +6,7 @@ use App\Models\AntreanModel;
 use App\Models\DataAntreModel;
 use App\Models\UserloginModel;
 use App\Models\DaftarMahasiswaModel;
+use App\Models\DateSelectModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
@@ -45,7 +46,7 @@ abstract class BaseController extends Controller
     protected $userloginModel;
     protected $dataModel;
     protected $daftarmahasiswaModel;
-
+    protected $dateselectModel;
     protected $session;
 
     /**
@@ -70,6 +71,7 @@ abstract class BaseController extends Controller
         $this->dataModel = new DataAntreModel();
         $this->userloginModel = new UserloginModel();
         $this->daftarmahasiswaModel = new DaftarMahasiswaModel();
+        $this->dateselectModel = new DateSelectModel();
         $this->session = \Config\Services::session();
     }
 }

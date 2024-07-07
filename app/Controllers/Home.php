@@ -2,22 +2,23 @@
 
 namespace App\Controllers;
 
-use App\Models\AntreanModel;
-use App\Models\UserModel;
-
 class Home extends BaseController
 {
     public function index()
     {
-        $antreans = $this->antreanModel
-            ->select('antrean.*, users.nama as dosen_nama')
-            ->join('users', 'antrean.dosen_id = users.id_users')
+        $approval = $this->daftarmahasiswaModel
+            ->join('role', 'users.id_role = role.id_role')
+            ->join('jenis_kelamin', 'users.id_jenis_kelamin = jenis_kelamin.id_jenis_kelamin')
+            ->join('fakultas_mahasiswa', 'users.id_fakultas_mahasiswa = fakultas_mahasiswa.id_fakultas_mahasiswa')
+            ->join('departemen_mahasiswa', 'users.id_departemen_mahasiswa = departemen_mahasiswa.id_departemen_mahasiswa')
+            ->join('prodi_departemen', 'users.id_prodi_departemen = prodi_departemen.id_prodi_departemen')
+            ->where('status_approval', 'approved')
             ->paginate(10);
 
         $data = [
             'title' => 'SIANTREUM',
-            'antre' => $antreans,
-            'pager' => $this->antreanModel->pager,
+            'pager' => $this->daftarmahasiswaModel->pager,
+            'approve' => $approval,
         ];
 
         return view('landingpage', $data);
@@ -26,8 +27,8 @@ class Home extends BaseController
     public function monitorAntrean()
     {
         $antreans = $this->antreanModel
-            ->select('antrean.*, users.nama as dosen_nama')
-            ->join('users', 'antrean.dosen_id = users.id_users')
+            ->select('antrean.*, users.nama_lengkap as mahasiswa_nama')
+            ->join('users', 'antrean.id_antrean = users.id_users')
             ->get()
             ->getResultArray();
 
